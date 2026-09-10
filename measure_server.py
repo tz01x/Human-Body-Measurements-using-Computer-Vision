@@ -340,6 +340,31 @@ def delete_result(record_id):
     shutil.rmtree(d, ignore_errors=True)
     return jsonify({'deleted': record_id})
 
+@app.route('/image/<record_id>', methods=['GET'])
+def get_image(record_id):
+    d = record_dir(record_id)
+    if d is None:
+        return jsonify({'error': 'unknown id'}), 404
+
+    matches = [f for f in os.listdir(d) if f.startswith('input.')]
+    if not matches:
+        return jsonify({'error': 'no image stored for this id'}), 404
+
+    name = matches[0]
+    ext = os.path.splitext(name)[1].lower()
+    mime = {'.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png',
+            '.bmp': 'image/bmp', '.webp': 'image/webp'}.get(ext,
+                                                            'application/octet-stream')
+
+    with open(os.path.join(d, name), 'rb') as fh:
+        payload = fh.read()
+
+    disposition = 'attachment' if request.args.get('download') == '1' else 'inline'
+    return Response(payload, mimetype=mime, headers={
+        'Content-Disposition': '%s; filename="%s%s"' % (disposition, record_id, ext),
+        'Content-Length': str(len(payload)),
+        'Cache-Control': 'private, no-store',
+    })
 
 @app.errorhandler(413)
 def too_large(_):
