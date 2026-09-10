@@ -48,13 +48,14 @@ from there (the repo hardcodes relative paths to models/, data/, src/).
  
 Endpoints
 ---------
-GET    /health                 model status
-POST   /measure                multipart: image=<file>, height=<float>,
+1. GET    /health                 model status
+2. POST   /measure                multipart: image=<file>, height=<float>,
                                units=<in|cm>  ->  JSON incl. "id"
-GET    /result/<id>            the JSON again
-GET    /mesh/<id>              download the .obj for that id
-GET    /results                list stored ids
-DELETE /result/<id>            delete an id and its files
+
+3. GET    /result/<id>            the JSON again
+4. GET    /mesh/<id>              download the .obj for that id
+5. GET    /results                list stored ids
+6. DELETE /result/<id>            delete an id and its files
  
 Example
 -------
