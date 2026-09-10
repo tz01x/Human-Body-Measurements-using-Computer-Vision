@@ -149,14 +149,14 @@ def main(img_path, height, json_path=None):
 
     
     
-#    with open(obj_mesh_name, 'w') as fp:
-#        for v in verts[0]:
-#            fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )
-#
-#        for f in faces: # Faces are 1-based, not 0-based in obj files
-#            fp.write( 'f %d %d %d\n' %  (f[0] + 1, f[1] + 1, f[2] + 1) )
-#        
-#    print("Model Saved...")
+   with open(obj_mesh_name, 'w') as fp:
+       for v in verts[0]:
+           fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )
+
+       for f in faces: # Faces are 1-based, not 0-based in obj files
+           fp.write( 'f %d %d %d\n' %  (f[0] + 1, f[1] + 1, f[2] + 1) )
+       
+   print("Model Saved...")
 
 
 #if __name__ == '__main__':
