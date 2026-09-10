@@ -37,6 +37,29 @@ Download [CustomBodyPoints](https://github.com/farazBhatti/Human-Body-Measuremen
 A Jupyter notebook has been added and updated for those who quickly want to get inference without much hassle. Simply change the path to your input image.
 Thanks to [Hamza Khalil](https://github.com/hamzakhalil798) for adding this notebook.
 
+## Server 
+HTTP API for the body-measurement pipeline.
+ 
+Place in the root of Human-Body-Measurements-using-Computer-Vision/ and run
+from there (the repo hardcodes relative paths to models/, data/, src/).
+ 
+    pip install flask
+    python measure_server.py --port 8080
+ 
+Endpoints
+---------
+GET    /health                 model status
+POST   /measure                multipart: image=<file>, height=<float>,
+                               units=<in|cm>  ->  JSON incl. "id"
+GET    /result/<id>            the JSON again
+GET    /mesh/<id>              download the .obj for that id
+GET    /results                list stored ids
+DELETE /result/<id>            delete an id and its files
+ 
+Example
+-------
+    curl -F image=@photo.jpg -F height=68 http://localhost:8080/measure
+    curl -O -J http://localhost:8080/mesh/<id>
 
 ## Inference
 `python3 inference.py -i <path to Image1> -ht <height in cm>`
