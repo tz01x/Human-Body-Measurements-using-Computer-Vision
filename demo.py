@@ -142,7 +142,7 @@ def main(img_path, height, json_path=None):
     
 #    face_path = './src/tf_smpl/smpl_faces.npy'
 #    faces = np.load(face_path)
-#    obj_mesh_name = 'test.obj'
+    obj_mesh_name = 'test.obj'
 
     
     extract_measurements.extract_measurements(height,verts[0])
